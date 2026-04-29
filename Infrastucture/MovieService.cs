@@ -24,15 +24,9 @@ public class MovieService : IMoviess
     con.Execute(sql);
     }
 
-    public object AddMovieById(int v, object id)
-    {
-        throw new NotImplementedException();
-    }
 
-    public void AddMovieById(object id)
-    {
-        throw new NotImplementedException();
-    }
+
+ 
 
     public void DeleteMovieById(int id)
     {
@@ -91,4 +85,74 @@ public class MovieService : IMoviess
            
     }
 
+}
+
+//////////////////////////////////////////
+static void CoursesMenu(CourseService service)
+{
+    Console.WriteLine("\n--- COURSES ---");
+    Console.WriteLine("1. Add Course");
+    Console.WriteLine("2. Get All Courses");
+
+    int choice = int.Parse(Console.ReadLine());
+
+    if (choice == 1)
+    {
+        Course c = new Course();
+
+        Console.Write("Title: ");
+        c.Title = Console.ReadLine();
+
+        Console.Write("Description: ");
+        c.Description = Console.ReadLine();
+
+        Console.Write("DurationWeeks: ");
+        c.DurationWeeks = int.Parse(Console.ReadLine());
+
+        service.Add(c);
+    }
+    else if (choice == 2)
+    {
+        var list = service.GetAll();
+
+        foreach (var c in list)
+            Console.WriteLine($"{c.CourseId} - {c.Title}");
+    }
+}
+/////////
+static void MentorsMenu(MentorService service)
+{
+    Console.WriteLine("\n--- MENTORS ---");
+    Console.WriteLine("1. Add Mentor");
+    Console.WriteLine("2. Get All Mentors");
+    Console.WriteLine("3. Top Mentor");
+
+    int choice = int.Parse(Console.ReadLine());
+
+    if (choice == 3)
+    {
+        var result = service.GetMentorWithMostStudents();
+        Console.WriteLine(result);
+    }
+}
+
+/////////////////////////////////////////////////////////////
+/// 
+/// 
+static void GroupsMenu(GroupService service)
+{
+    Console.WriteLine("\n--- GROUPS ---");
+    Console.WriteLine("1. Add Group");
+    Console.WriteLine("2. Get Students Per Group");
+    Console.WriteLine("3. Empty Groups");
+
+    int choice = int.Parse(Console.ReadLine());
+
+    if (choice == 2)
+    {
+        var list = service.GetStudentsPerGroup();
+
+        foreach (var g in list)
+            Console.WriteLine(g);
+    }
 }
